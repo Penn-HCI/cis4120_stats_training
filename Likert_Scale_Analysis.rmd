@@ -2,12 +2,14 @@
 title: "Likert Scale Analysis"
 author: "Michael Sun"
 date: "January 14, 2024"
-output: html_notebook
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(tinytex)
+tinytex::install_tinytex(force = TRUE)
 ?rmarkdown::pandoc_available
 ```
 ### Likert Scales
@@ -119,6 +121,8 @@ print(summary_stats_likert_multiple)
 ### Step 5: Running Statistical Tests
 
 The statistical test you run depends on the experimental design you used. For within-subjects design, you should use the Wilcoxon signed rank test. For between-subjects design, you should use the Wilcoxon rank sum test.
+
+The Wilcoxon signed ranked test is a non-parametric test that compares two related samples. The Wilcoxon rank sum test (a.k.a. the Mean-Whitney U test) is a non-parametric test that compares two independent samples. These tests are non-parametric tests--used when the data is not normally distributed or when the sample size is small. Such is the case with Likert scale data.
 
 **Within-subjects:**
 ```{r statistical_tests, echo=TRUE}

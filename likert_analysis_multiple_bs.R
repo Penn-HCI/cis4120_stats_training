@@ -49,7 +49,7 @@ summary_stats_likert_multiple <- likert_data_long %>%
 options(dplyr.print_max = Inf)
 print(summary_stats_likert_multiple)
 
-# Wilcoxon rank sum test (Mean-Whitney U test)
+# Wilcoxon rank sum test (Mann-Whitney U test)
 # Initialize a data frame to store the test results
 wilcoxon_ranked_sum_multiple <- data.frame(Question = character(),
                                            W_statistic = numeric(),

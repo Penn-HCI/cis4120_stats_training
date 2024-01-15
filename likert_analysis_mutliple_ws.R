@@ -2,11 +2,13 @@
 install.packages("readxl")
 install.packages("ggplot2")
 install.packages("dplyr")
+install.packages("tinytex")
 
 # Load the packages
 library(readxl)
 library(ggplot2)
 library(tidyr)
+library(tinytex)
 
 # Read the Excel file
 likert_data_multiple_ws <- read_excel("usability_study_likert_within_subjects_data.xlsx")
