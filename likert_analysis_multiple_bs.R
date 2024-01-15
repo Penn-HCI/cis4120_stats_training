@@ -9,7 +9,7 @@ library(ggplot2)
 library(tidyr)
 
 # Read the Excel file
-likert_data_multiple <- read_excel("usability_study_likert_data_multiple.xlsx")
+likert_data_multiple <- read_excel("usability_study_likert_data_between_subjects.xlsx")
 
 # Reshape the data to long format
 likert_data_long <- pivot_longer(likert_data_multiple,
