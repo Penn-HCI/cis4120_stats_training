@@ -8,7 +8,7 @@ library(readxl)
 library(ggplot2)
 
 # Read the Excel file
-time_data <- read_excel("data/usability_study_data.xlsx")
+time_data <- read_excel("data/usability_study_quantitative_data_bs.xlsx")
 
 # Boxplot
 ggplot(time_data, aes(x = Version, y = Time)) +
@@ -42,11 +42,3 @@ t_test_result <- t.test(Time ~ Version, data = time_data)
 
 # Print the results
 print(t_test_result)
-
-# Perform a two-sample one-tailed t-test
-# Halve the p-value if the test statistic is in the direction of the hypothesis
-if (t_test_result$statistic > 0) {
-    p_value_one_tailed <- t_test_result$p.value / 2
-} else {
-    p_value_one_tailed <- 1 - (t_test_result$p.value / 2)
-}

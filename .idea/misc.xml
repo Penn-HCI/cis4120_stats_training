@@ -15,6 +15,14 @@
             </RMarkdownRenderProfile>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/Guides/Quantitative_Analysis.rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="lastOutput" value="$PROJECT_DIR$/Guides/Quantitative_Analysis.html" />
+              <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/Guides" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/Likert_Scale_Analysis.rmd">
           <value>
             <RMarkdownRenderProfile>

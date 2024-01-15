@@ -51,7 +51,7 @@ If you haven't installed the package yet, be sure to uncomment the `install.pack
 # install.packages("readxl")
 library(readxl)
 
-likert_data_multiple_ws <- read_excel("../data/usability_study_likert_within_subjects_data.xlsx")
+likert_data_multiple_ws <- read_excel("../data/usability_study_likert_ws.xlsx")
 ```
 
 ### Step 3: Creating Plots
