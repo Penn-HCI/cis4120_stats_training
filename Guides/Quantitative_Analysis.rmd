@@ -2,7 +2,7 @@
 title: "Quantitative Analysis"
 author: "Michael Sun"
 date: "January 14, 2024"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
