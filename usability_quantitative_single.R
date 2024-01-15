@@ -8,7 +8,7 @@ library(readxl)
 library(ggplot2)
 
 # Read the Excel file
-time_data <- read_excel("usability_study_data.xlsx")
+time_data <- read_excel("data/usability_study_data.xlsx")
 
 # Boxplot
 ggplot(time_data, aes(x = Version, y = Time)) +

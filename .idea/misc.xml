@@ -7,6 +7,14 @@
   <component name="RMarkdownSettings">
     <option name="renderProfiles">
       <map>
+        <entry key="file://$PROJECT_DIR$/Guides/Likert_Scale_Analysis.rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="lastOutput" value="$PROJECT_DIR$/Guides/Likert_Scale_Analysis.pdf" />
+              <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/Guides" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/Likert_Scale_Analysis.rmd">
           <value>
             <RMarkdownRenderProfile>

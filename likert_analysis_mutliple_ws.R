@@ -11,7 +11,7 @@ library(tidyr)
 library(tinytex)
 
 # Read the Excel file
-likert_data_multiple_ws <- read_excel("usability_study_likert_within_subjects_data.xlsx")
+likert_data_multiple_ws <- read_excel("data/usability_study_likert_within_subjects_data.xlsx")
 
 # Reshape the data to long format
 data_long <- pivot_longer(likert_data_multiple_ws,

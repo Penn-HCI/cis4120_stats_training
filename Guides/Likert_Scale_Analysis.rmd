@@ -9,7 +9,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(tinytex)
-tinytex::install_tinytex(force = TRUE)
+# tinytex::install_tinytex(force = TRUE)
 ?rmarkdown::pandoc_available
 ```
 ### Likert Scales
@@ -35,11 +35,11 @@ The responses should be stored in an Excel file, with each row representing a re
 
 This is an example of what your Excel file should look like for a **between-subjects** design:
 
-![](likert_between_excel.png)
+![](../images/likert_between_excel.png)
 
 And for a **within-subjects** design:
 
-![](likert_within_excel.png)
+![](../images/likert_within_excel.png)
 
 ### Step 2: Loading Data into R
 
@@ -51,7 +51,7 @@ If you haven't installed the package yet, be sure to uncomment the `install.pack
 # install.packages("readxl")
 library(readxl)
 
-likert_data_multiple_ws <- read_excel("usability_study_likert_within_subjects_data.xlsx")
+likert_data_multiple_ws <- read_excel("../data/usability_study_likert_within_subjects_data.xlsx")
 ```
 
 ### Step 3: Creating Plots

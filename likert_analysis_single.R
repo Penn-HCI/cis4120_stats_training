@@ -8,7 +8,7 @@ library(readxl)
 library(ggplot2)
 
 # Read the Excel file
-likert_data <- read_excel("usability_study_likert_data.xlsx")
+likert_data <- read_excel("data/usability_study_likert_data.xlsx")
 
 # Bar chart showing the frequency of each Likert rating for each version
 ggplot(likert_data, aes(x = Likert_Rating, fill = Version)) +
