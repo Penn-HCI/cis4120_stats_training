@@ -2,11 +2,13 @@
 install.packages("readxl")
 install.packages("ggplot2")
 install.packages("dplyr")
+install.packages("tidyr")
 install.packages("tinytex")
 
 # Load the packages
 library(readxl)
 library(ggplot2)
+library(dplyr)
 library(tidyr)
 library(tinytex)
 

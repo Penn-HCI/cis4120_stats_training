@@ -18,7 +18,7 @@
         <entry key="file://$PROJECT_DIR$/Guides/Quantitative_Analysis.rmd">
           <value>
             <RMarkdownRenderProfile>
-              <option name="lastOutput" value="$PROJECT_DIR$/Guides/Quantitative_Analysis.html" />
+              <option name="lastOutput" value="$PROJECT_DIR$/Guides/Quantitative_Analysis.pdf" />
               <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/Guides" />
             </RMarkdownRenderProfile>
           </value>
