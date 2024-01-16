@@ -154,4 +154,4 @@ for (q in unique(data_long$Question)) {
 print(test_results)
 ```
 
-For a **between-subjects** design, you can use the Wilcoxon rank sum test. See the GitHub page for more information.
+For a **between-subjects** design, you can use the Wilcoxon rank sum test. See the [likert_analysis_multiple_bs.R](https://github.com/m1chaelsun/cis4120_stats_training/blob/main/likert_analysis_multiple_bs.R) page on GitHub for more information.

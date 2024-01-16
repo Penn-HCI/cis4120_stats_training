@@ -122,4 +122,4 @@ t_test_result <- t.test(Time ~ Version, data = time_data)
 print(t_test_result)
 ```
 
-For a **between-subjects** design, you can use the 2-sample t-test to compare the means of two groups. See the Github page for more information.
+For a **between-subjects** design, you can use the 2-sample t-test to compare the means of two groups. See the [usability_quantitative_single_bs.R](https://github.com/m1chaelsun/cis4120_stats_training/blob/main/usability_quantitative_single_bs.R) page on GitHub for more information.
