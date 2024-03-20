@@ -1,98 +1,108 @@
 # Install necessary packages
-install.packages("readxl")
 install.packages("ggplot2")
 install.packages("dplyr")
 install.packages("tidyr")
-install.packages("tinytex")
 
 # Load the packages
-library(readxl)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
-library(tinytex)
 
-# Read the Excel file
-data <- read_excel("Lab/sample_data_ws.xlsx")
+# Read the CSV file
+data <- read.csv("Lab/sample_data.csv")
 
-# Bar chart showing the frequency of each Likert rating for each version
-ggplot(data, aes(x = Likert, fill = Version)) +
-  geom_bar(position = "dodge") +
-  labs(title = "Frequency of Likert Ratings by App Version",
-       x = "Likert Rating",
-       y = "Frequency") +
-  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+# Function to create a bar chart for a given Likert question
+plot_question_versions <- function(question) {
+  # Create a bar chart comparing the number of responses for each rating
+  ggplot(filter(data, grepl(question, Likert)), aes(x = Likert_Rating, fill = Version)) +
+    geom_bar(position = "dodge") +
+    labs(title = paste("Frequency of Ratings for", question, "by App Version"),
+         x = "Rating",
+         y = "Frequency") +
+    theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+}
 
-# Boxplot
-ggplot(data, aes(x = Version, y = Quant)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of Task Completion Time by App Version",
-       x = "Version",
-       y = "Time Taken") +
-  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+# Get unique Likert questions
+unique_questions <- unique(data$Likert)
 
-# Density plot
-ggplot(data, aes(x = Quant, fill = Version)) +
+# Loop through each question and plot
+for (question in unique_questions) {
+  print(plot_question_versions(question))
+}
+
+# Density plot of task completion time by app version
+ggplot(data, aes(x = Time_Taken, fill = Version)) +
   geom_density(alpha = 0.5) +
   labs(title = "Density Plot of Task Completion Time by App Version",
        x = "Time Taken",
        y = "Density") +
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 
-# Stacked bar chart showing the frequency of each Likert rating for each version
-ggplot(data, aes(x = Version, fill = factor(Likert))) +
-  geom_bar() +
-  scale_fill_discrete(name = "Likert Rating") +
-  labs(title = "Stacked Bar Chart of Likert Ratings by App Version",
-       x = "Version",
-       y = "Count") +
-  theme(plot.title = element_text(hjust = -0.25, face = "bold"))
-
-# Compute summary statistics Likert for each version
+# Compute summary statistics for Likert_Rating for each version and Likert question
 summary_stats_likert <- data %>%
-  group_by(Version) %>%
+  group_by(Version, Likert) %>%
   summarize(
     Count = n(),
-    Mean = mean(Likert),
-    Median = median(Likert),
-    Standard_Deviation = sd(Likert),
-    Min = min(Likert),
-    Max = max(Likert)
+    Mean = mean(Likert_Rating),
+    Median = median(Likert_Rating),
+    Standard_Deviation = sd(Likert_Rating),
+    Min = min(Likert_Rating),
+    Max = max(Likert_Rating),
+    .groups = "drop"
   )
 
-# Compute summary statistics Quantitative for each version
-summary_stats_time <- data %>%
+# Remove duplicates as data is in wide format
+unique_time_data <- data %>%
+  group_by(Participant_ID, Version) %>%
+  distinct(Time_Taken, .keep_all = TRUE)
+
+# Compute summary statistics for Time_Taken for each version
+summary_stats_time <- unique_time_data %>%
   group_by(Version) %>%
   summarize(
     Count = n(),
-    Mean = mean(Quant),
-    Median = median(Quant),
-    Standard_Deviation = sd(Quant),
-    Min = min(Quant),
-    Max = max(Quant)
+    Mean = mean(Time_Taken),
+    Median = median(Time_Taken),
+    Standard_Deviation = sd(Time_Taken),
+    Min = min(Time_Taken),
+    Max = max(Time_Taken),
+    .groups = "drop"
   )
 
 # Print the summary statistics
 print(summary_stats_likert)
 print(summary_stats_time)
 
-# Wilcoxon rank sum test (Mean-Whitney U test)
-# Assumes this is a between-subjects design
-# Assuming data is paired, reshape the data
+# Initialize an empty data frame to store the results
+wilcox_test_results <- data.frame(
+  Question = character(),
+  W = numeric(),
+  P_Value = numeric(),
+  stringsAsFactors = FALSE
+)
 
-# Perform the Wilcoxon rank sum test (Mann-Whitney U test)
-wilcox_test_result <- wilcox.test(Likert ~ Version, data = data)
+# Loop through each unique Likert question
+for (question in unique_questions) {
+  # Subset the data to only include rows related to the current Likert question
+  question_data <- filter(data, Likert == question)
 
-# Print the results
-print(wilcox_test_result)
+  # Perform the Wilcoxon signed rank test
+  wilcox_test_result <- wilcox.test(Likert_Rating ~ Version, data = question_data)
 
-# Reshaping the data to wide format
-time_data_wide <- data %>%
-  pivot_wider(names_from = Version, values_from = Quant)
+  # Store the results in the data frame
+  wilcox_test_results <- rbind(wilcox_test_results, data.frame(
+    Question = question,
+    W = wilcox_test_result$statistic,
+    P_Value = wilcox_test_result$p.value
+  ))
+}
 
-# Perform the paired t-test
-t_test_result <-
-  t.test(time_data_wide$A, time_data_wide$B, paired = TRUE)
+# Print the data frame
+print(wilcox_test_results)
+
+# Subset the data for each version and perform the unpaired t-test
+t_test_result <- t.test(filter(unique_time_data, Version == "A")$Time_Taken,
+                        filter(unique_time_data, Version == "B")$Time_Taken)
 
 # Print the results
 print(t_test_result)

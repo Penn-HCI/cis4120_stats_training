@@ -16,14 +16,14 @@ library(tinytex)
 likert_data_multiple_ws <- read_excel("data/usability_study_likert_ws.xlsx")
 
 # Reshape the data to long format
-data_long <- pivot_longer(likert_data_multiple_ws,
-                          cols = starts_with("Question"),
-                          names_to = "Question",
-                          values_to = "Likert_Rating")
+data <- pivot_longer(likert_data_multiple_ws,
+                     cols = starts_with("Question"),
+                     names_to = "Question",
+                     values_to = "Likert_Rating")
 
 # Function to create a bar chart for a given question
 plot_question_versions <- function(question) {
-  filtered_data <- filter(data_long, Question == question)
+  filtered_data <- filter(data, Question == question)
 
   ggplot(filtered_data, aes(x = as.factor(Likert_Rating), fill = Version)) +
     geom_bar(position = position_dodge()) +
@@ -35,7 +35,7 @@ plot_question_versions <- function(question) {
 }
 
 # Get unique questions
-unique_questions <- unique(data_long$Question)
+unique_questions <- unique(data$Question)
 
 # Loop through each question and plot
 for (question in unique_questions) {
@@ -43,7 +43,7 @@ for (question in unique_questions) {
 }
 
 # Compute summary statistics for each version and question
-summary_stats_likert_multiple <- data_long %>%
+summary_stats_likert_multiple <- data %>%
   group_by(Question, Version) %>%
   summarize(
     Count = n(),
@@ -65,11 +65,11 @@ test_results <- data.frame(Question = character(),
                            P_Value = numeric(),
                            stringsAsFactors = FALSE)
 
-data_wide <- data_long %>%
+data_wide <- data %>%
   pivot_wider(names_from = Version, values_from = Likert_Rating)
 
 # Looping through each question to perform the test
-for (q in unique(data_long$Question)) {
+for (q in unique(data$Question)) {
   # Extracting the paired responses for each version
   responses <- filter(data_wide, Question == q)
 
