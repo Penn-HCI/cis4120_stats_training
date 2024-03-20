@@ -22,11 +22,8 @@ plot_question_versions <- function(question) {
     theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 }
 
-# Get unique Likert questions
-unique_questions <- unique(data$Likert)
-
 # Loop through each question and plot
-for (question in unique_questions) {
+for (question in unique(data$Likert)) {
   print(plot_question_versions(question))
 }
 
@@ -82,7 +79,7 @@ wilcox_test_results <- data.frame(
 )
 
 # Loop through each unique Likert question
-for (question in unique_questions) {
+for (question in unique(data$Likert)) {
   # Subset the data to only include rows related to the current Likert question
   question_data <- filter(data, Likert == question)
 
