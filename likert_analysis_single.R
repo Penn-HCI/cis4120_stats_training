@@ -56,5 +56,3 @@ wilcox_test_result <- wilcox.test(Likert_Rating ~ Version, data = likert_data)
 
 # Print the results
 print(wilcox_test_result)
-
-#H_a: There is a difference in the median Likert ratings between the two versions.
