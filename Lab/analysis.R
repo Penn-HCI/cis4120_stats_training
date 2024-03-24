@@ -103,3 +103,12 @@ t_test_result <- t.test(filter(unique_time_data, Version == "A")$Time_Taken,
 
 # Print the results
 print(t_test_result)
+
+# Convert the Expertise column to a factor with ordered levels
+data$Expertise <- factor(data$Expertise, ordered = TRUE, levels = c("Beginner", "Intermediate", "Advanced"))
+
+# Fit the model
+model <- glm(Time_Taken ~ Expertise + Version * Task, data = data, family = gaussian())
+
+# Print the model summary
+summary(model)
