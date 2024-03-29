@@ -2,11 +2,13 @@
 install.packages("ggplot2")
 install.packages("dplyr")
 install.packages("tidyr")
+install.packages("lme4")
 
 # Load the packages
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(lme4)
 
 # Read the CSV file
 data <- read.csv("Lab/sample_data.csv")
@@ -108,7 +110,7 @@ print(t_test_result)
 data$Expertise <- factor(data$Expertise, ordered = TRUE, levels = c("Beginner", "Intermediate", "Advanced"))
 
 # Fit the model
-model <- glm(Time_Taken ~ Expertise + Version * Task, data = data, family = gaussian())
+model <- lmer(Time_Taken ~ Expertise + Version * Task + (1|Participant_ID), data = data)
 
 # Print the model summary
 summary(model)
